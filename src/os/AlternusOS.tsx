@@ -242,23 +242,45 @@ export default function AlternusOS() {
 
         {/* Center branding + AI Search */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-[0]">
-          <h1 className="text-8xl md:text-9xl font-semibold mb-4 select-none bg-clip-text"
-            style={{ backgroundImage: `linear-gradient(90deg, ${c.textMuted} 0%, ${c.text} 50%, ${c.textMuted} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", color: "transparent" }}>
-            Alternus<span className="text-xl align-super" style={{ WebkitTextFillColor: c.textMuted }}>&copy;</span>
+          <h1
+            style={{
+              fontSize: "clamp(5rem, 10vw, 9rem)",
+              fontWeight: 600,
+              marginBottom: 16,
+              userSelect: "none",
+              backgroundImage: `linear-gradient(90deg, ${c.textMuted} 0%, ${c.text} 50%, ${c.textMuted} 100%)`,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              color: "transparent",
+              lineHeight: 1,
+            }}>
+            Alternus<span style={{ fontSize: "1.25rem", verticalAlign: "super", WebkitTextFillColor: c.textMuted }}>&copy;</span>
           </h1>
-          <p className="text-base font-light mb-10" style={{ color: c.textSec }}>
+          <p style={{ fontSize: 16, fontWeight: 300, marginBottom: 40, color: c.textSec }}>
             Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}. What would you like to create today?
           </p>
-          <div className="w-full max-w-2xl">
-            <div className="flex items-center gap-2 pl-5 pr-2 py-2 rounded-2xl transition-all"
-              style={{ background: c.surface, border: `1px solid ${c.border}`, boxShadow: store.mode === "dark" ? "0 4px 24px rgba(0,0,0,0.3)" : "0 4px 24px rgba(0,0,0,0.08)" }}>
+          <div style={{ width: "100%", maxWidth: 672, padding: "0 16px" }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              paddingLeft: 20,
+              paddingRight: 8,
+              paddingTop: 8,
+              paddingBottom: 8,
+              borderRadius: 16,
+              background: c.surface,
+              border: `1px solid ${c.border}`,
+              boxShadow: store.mode === "dark" ? "0 4px 24px rgba(0,0,0,0.3)" : "0 4px 24px rgba(0,0,0,0.08)",
+            }}>
               <I d={ic.search} s={20} c={c.textMuted} />
-              <input className="flex-1 bg-transparent outline-none text-base py-2" style={{ color: c.text }}
+              <input
+                style={{ flex: 1, background: "transparent", outline: "none", fontSize: 16, padding: "8px 0", color: c.text, border: "none" }}
                 placeholder="Search or ask AI anything..."
                 value={store.aiInput} onChange={(e) => store.setAiInput(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter" && store.aiInput.trim()) handleDesktopSearch(); }} />
               <button onClick={() => store.aiInput.trim() && handleDesktopSearch()}
-                className="px-5 py-2.5 rounded-xl transition-all hover:opacity-90 active:scale-95" style={{ background: c.accent }}>
+                style={{ padding: "10px 20px", borderRadius: 12, background: c.accent, border: "none", cursor: "pointer" }}>
                 <I d={ic.send} s={16} c="#fff" />
               </button>
             </div>
