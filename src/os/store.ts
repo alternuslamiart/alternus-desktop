@@ -2,21 +2,72 @@ import { create } from "zustand";
 import type { ThemeMode, WinId, WinState, BootPhase, SystemModal, AINotification, TimelineEvent } from "./types";
 import { ic } from "./icons";
 
+// Standard window size for consistent proportions
+const STD_W = 620;
+const STD_H = 460;
+const GAP = 8;
+
 const defaultWins: WinState[] = [
-  { id: "ai", title: "Alternus AI", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 80, y: 40, w: 650, h: 480 },
-  { id: "terminal", title: "Terminal", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 180, y: 50, w: 620, h: 420 },
-  { id: "code", title: "Code Editor", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 120, y: 40, w: 720, h: 500 },
-  { id: "files", title: "Files", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 250, y: 60, w: 520, h: 420 },
-  { id: "settings", title: "Settings", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 150, y: 40, w: 680, h: 500 },
-  { id: "music", title: "Music", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 280, y: 50, w: 380, h: 450 },
-  { id: "weather", title: "Weather", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 350, y: 50, w: 400, h: 440 },
-  { id: "calendar", title: "Calendar", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 400, y: 60, w: 380, h: 420 },
-  { id: "notes", title: "Notes", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 200, y: 70, w: 500, h: 420 },
-  { id: "browser", title: "Browser", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 100, y: 30, w: 780, h: 520 },
-  { id: "store", title: "Store", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 160, y: 50, w: 620, h: 460 },
-  { id: "movies", title: "Movies", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 180, y: 40, w: 650, h: 480 },
-  { id: "word", title: "Alternus Word", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 80, y: 30, w: 760, h: 540 },
+  { id: "ai", title: "Alternus AI", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
+  { id: "terminal", title: "Terminal", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
+  { id: "code", title: "Code Editor", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
+  { id: "files", title: "Files", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
+  { id: "settings", title: "Settings", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
+  { id: "music", title: "Music", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
+  { id: "weather", title: "Weather", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
+  { id: "calendar", title: "Calendar", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
+  { id: "notes", title: "Notes", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
+  { id: "browser", title: "Browser", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
+  { id: "store", title: "Store", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
+  { id: "movies", title: "Movies", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
+  { id: "word", title: "Alternus Word", isOpen: false, isMinimized: false, isMaximized: false, zIndex: 1, x: 60, y: 80, w: STD_W, h: STD_H },
 ];
+
+// Find a non-overlapping position for a new window
+function findOpenPosition(wins: WinState[], targetW: number, targetH: number): { x: number; y: number } {
+  const openWins = wins.filter(w => w.isOpen && !w.isMinimized);
+  const screenW = typeof window !== "undefined" ? window.innerWidth : 1400;
+  const screenH = typeof window !== "undefined" ? window.innerHeight - 36 : 700; // minus top bar
+  const topBarH = 36;
+
+  if (openWins.length === 0) {
+    // Center the first window
+    return {
+      x: Math.max(GAP, Math.floor((screenW - targetW) / 2)),
+      y: Math.max(topBarH + GAP, Math.floor((screenH - targetH) / 2) + topBarH),
+    };
+  }
+
+  // Try cascade positions with GAP offset
+  const cascadeStep = 32;
+  for (let i = 0; i < 20; i++) {
+    const cx = GAP + i * cascadeStep;
+    const cy = topBarH + GAP + i * cascadeStep;
+    if (cx + targetW > screenW - GAP || cy + targetH > screenH + topBarH - GAP) break;
+    const overlap = openWins.some(w =>
+      Math.abs(w.x - cx) < cascadeStep && Math.abs(w.y - cy) < cascadeStep
+    );
+    if (!overlap) return { x: cx, y: cy };
+  }
+
+  // Try tiling: place next to the rightmost open window
+  const rightmost = openWins.reduce((a, b) => (a.x + a.w > b.x + b.w ? a : b));
+  const nextX = rightmost.x + rightmost.w + GAP;
+  if (nextX + targetW <= screenW - GAP) {
+    return { x: nextX, y: rightmost.y };
+  }
+
+  // Try below the bottommost window
+  const bottommost = openWins.reduce((a, b) => (a.y + a.h > b.y + b.h ? a : b));
+  const nextY = bottommost.y + bottommost.h + GAP;
+  if (nextY + targetH <= screenH + topBarH - GAP) {
+    return { x: GAP, y: nextY };
+  }
+
+  // Fallback: cascade from top-left with offset based on open window count
+  const offset = (openWins.length % 6) * cascadeStep;
+  return { x: GAP + offset, y: topBarH + GAP + offset };
+}
 
 export const aiWorkspaceRules: Record<string, WinId[]> = {
   code: ["terminal", "browser"],
@@ -146,7 +197,10 @@ export const useOSStore = create<OSStore>((set) => ({
       zCounter: z,
       wins: s.wins.map((w) => {
         if (w.id === id) {
-          if (!w.isOpen) return { ...w, isOpen: true, isMinimized: false, zIndex: z };
+          if (!w.isOpen) {
+            const pos = findOpenPosition(s.wins, w.w, w.h);
+            return { ...w, isOpen: true, isMinimized: false, zIndex: z, x: pos.x, y: pos.y };
+          }
           if (w.isMinimized) return { ...w, isMinimized: false, zIndex: z };
           return { ...w, zIndex: z };
         }
