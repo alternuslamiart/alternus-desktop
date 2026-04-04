@@ -16,7 +16,7 @@ export function TitleBar({ title, c, onClose, onMinimize, onMaximize, onMouseDow
   return (
     <div
       onMouseDown={onMouseDown}
-      className="flex items-center justify-between h-9 px-3 select-none cursor-move flex-shrink-0"
+      className="flex items-center justify-between h-10 px-4 select-none cursor-move flex-shrink-0"
       style={{ background: c.titlebar, borderBottom: `1px solid ${c.titlebarBorder}` }}
     >
       <span style={{ color: isFrozen ? c.warning : c.textSec }} className="text-xs font-medium">

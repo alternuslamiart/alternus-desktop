@@ -27,8 +27,8 @@ const defaultWins: WinState[] = [
 function findOpenPosition(wins: WinState[], targetW: number, targetH: number): { x: number; y: number } {
   const openWins = wins.filter(w => w.isOpen && !w.isMinimized);
   const screenW = typeof window !== "undefined" ? window.innerWidth : 1400;
-  const screenH = typeof window !== "undefined" ? window.innerHeight - 36 : 700; // minus top bar
-  const topBarH = 36;
+  const screenH = typeof window !== "undefined" ? window.innerHeight - 40 : 700; // minus top bar
+  const topBarH = 40;
 
   if (openWins.length === 0) {
     // Center the first window
@@ -239,7 +239,7 @@ export const useOSStore = create<OSStore>((set) => ({
 
   snapWin: (id, side) => {
     const hw = Math.floor(window.innerWidth / 2);
-    const fh = window.innerHeight - 36;
+    const fh = window.innerHeight - 40;
     set((s) => ({
       wins: s.wins.map((w) => w.id === id ? { ...w, x: side === "left" ? 0 : hw, y: 0, w: hw, h: fh, isMaximized: false } : w),
     }));

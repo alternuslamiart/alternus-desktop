@@ -169,7 +169,7 @@ export default function AlternusOS() {
   return (
     <div style={{ background: c.bg }} className="fixed inset-0 flex flex-col overflow-hidden">
       {/* Top Bar */}
-      <div className="flex items-center justify-between px-4 h-9 flex-shrink-0" style={{ background: c.surface, borderBottom: `1px solid ${c.border}` }}>
+      <div className="flex items-center justify-between px-4 h-10 flex-shrink-0" style={{ background: c.surface, borderBottom: `1px solid ${c.border}` }}>
         <div className="flex items-center gap-2">
           <span style={{ color: c.text }} className="text-[11px] font-bold tracking-wider">ALTERNUS</span>
           <span style={{ color: c.textMuted }} className="text-[10px]">OS</span>
@@ -441,8 +441,8 @@ export default function AlternusOS() {
             borderLeft: `1px solid ${c.border}`,
             boxShadow: store.showNotifications ? (store.mode === "dark" ? "-4px 0 20px rgba(0,0,0,0.4)" : "-4px 0 20px rgba(0,0,0,0.1)") : "none",
           }}>
-          <div className="flex items-center justify-between px-4 py-3 flex-shrink-0" style={{ borderBottom: `1px solid ${c.border}` }}>
-            <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between px-4 py-2 flex-shrink-0" style={{ borderBottom: `1px solid ${c.border}`, minHeight: 40 }}>
+            <div className="flex items-center gap-4">
               <I d={ic.sparkle} s={14} c={c.accentText} />
               <p className="text-sm font-semibold" style={{ color: c.text }}>Notifications</p>
               {store.smartDND && <span className="text-[9px] px-1.5 py-0.5 rounded-full" style={{ background: c.warningSoft, color: c.warning }}>DND</span>}
@@ -458,9 +458,9 @@ export default function AlternusOS() {
               <button onClick={() => store.setShowNotifications(false)} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: c.textMuted }}><I d={ic.close} s={14} /></button>
             </div>
           </div>
-          <div className="p-3 space-y-2 overflow-y-auto" style={{ height: "calc(100% - 52px)", scrollbarWidth: "none" }}>
+          <div className="px-2 py-2 space-y-1 overflow-y-auto" style={{ height: "calc(100% - 44px)", scrollbarWidth: "none" }}>
             {store.aiNotifications.map((n) => (
-              <div key={n.id} className="flex items-start gap-3 p-3 rounded-xl transition-colors"
+              <div key={n.id} className="flex items-start gap-4 px-4 py-2 rounded-xl transition-colors"
                 style={{ background: !n.read ? c.accentSoft : "transparent" }}
                 onMouseEnter={(e) => { if (n.read) e.currentTarget.style.background = c.cardAlt; }}
                 onMouseLeave={(e) => { if (n.read) e.currentTarget.style.background = "transparent"; }}
@@ -488,7 +488,7 @@ export default function AlternusOS() {
               { title: "Welcome", desc: "Welcome to Alternus OS! Explore your new desktop.", time: "5 min ago", icon: ic.sparkle },
               { title: "Network", desc: "Connected to AlternusNet \u00b7 5GHz", time: "10 min ago", icon: ic.wifi },
             ].map((n, i) => (
-              <div key={`sys-${i}`} className="flex items-start gap-3 p-3 rounded-xl transition-colors"
+              <div key={`sys-${i}`} className="flex items-start gap-4 px-4 py-2 rounded-xl transition-colors"
                 onMouseEnter={(e) => (e.currentTarget.style.background = c.cardAlt)}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}>
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: c.cardAlt }}>
