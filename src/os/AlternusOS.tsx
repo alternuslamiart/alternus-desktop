@@ -287,17 +287,17 @@ export default function AlternusOS() {
               </button>
             </div>
             {store.aiResponse && (
-              <div className="mt-3 px-5 py-4 rounded-2xl text-[13px] leading-relaxed"
-                style={{ background: c.surface, border: `1px solid ${c.border}`, color: c.text, boxShadow: store.mode === "dark" ? "0 4px 20px rgba(0,0,0,0.2)" : "0 4px 20px rgba(0,0,0,0.06)" }}>
+              <div className="mt-1 px-5 py-4 rounded-b-2xl text-[13px] leading-relaxed"
+                style={{ background: c.surface, borderTop: `1px solid ${c.border}`, color: c.text }}>
                 <pre className="whitespace-pre-wrap font-sans">{store.aiResponse}</pre>
                 {store.aiActions.length > 0 && (
-                  <div className="flex gap-2 mt-3">
+                  <div className="flex items-center gap-3 mt-3">
                     {store.aiActions.map((a, i) => (
                       <button key={i} onClick={() => { store.openWin(a.action); store.setAiResponse(null); store.setAiActions([]); store.setAiInput(""); }}
-                        className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all hover:opacity-80" style={{ background: c.accentSoft, color: c.accentText }}>{a.label}</button>
+                        className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all hover:opacity-80" style={{ background: c.accent, color: "#fff" }}>{a.label}</button>
                     ))}
                     <button onClick={() => { store.setAiResponse(null); store.setAiActions([]); }}
-                      className="px-3 py-1.5 rounded-lg text-xs transition-colors" style={{ color: c.textMuted }}>Dismiss</button>
+                      className="text-xs transition-colors" style={{ color: c.textMuted }}>Dismiss</button>
                   </div>
                 )}
               </div>
