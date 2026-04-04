@@ -263,32 +263,45 @@ export default function AlternusOS() {
           </p>
           <div style={{ width: "100%", maxWidth: 672, padding: "0 16px" }}>
             <div style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              paddingLeft: 20,
-              paddingRight: 8,
-              paddingTop: 8,
-              paddingBottom: 8,
-              borderRadius: 16,
+              borderRadius: store.aiResponse ? "16px 16px 0 0" : 16,
               background: c.surface,
               border: `1px solid ${c.border}`,
-              boxShadow: store.mode === "dark" ? "0 4px 24px rgba(0,0,0,0.3)" : "0 4px 24px rgba(0,0,0,0.08)",
+              borderBottom: store.aiResponse ? "none" : `1px solid ${c.border}`,
+              boxShadow: store.aiResponse ? "none" : (store.mode === "dark" ? "0 4px 24px rgba(0,0,0,0.3)" : "0 4px 24px rgba(0,0,0,0.08)"),
             }}>
-              <I d={ic.search} s={20} c={c.textMuted} />
-              <input
-                style={{ flex: 1, background: "transparent", outline: "none", fontSize: 16, padding: "8px 0", color: c.text, border: "none" }}
-                placeholder="Search or ask AI anything..."
-                value={store.aiInput} onChange={(e) => store.setAiInput(e.target.value)}
-                onKeyDown={(e) => { if (e.key === "Enter" && store.aiInput.trim()) handleDesktopSearch(); }} />
-              <button onClick={() => store.aiInput.trim() && handleDesktopSearch()}
-                style={{ padding: "10px 20px", borderRadius: 12, background: c.accent, border: "none", cursor: "pointer" }}>
-                <I d={ic.send} s={16} c="#fff" />
-              </button>
+              <div style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                paddingLeft: 20,
+                paddingRight: 8,
+                paddingTop: 8,
+                paddingBottom: 8,
+              }}>
+                <I d={ic.search} s={20} c={c.textMuted} />
+                <input
+                  style={{ flex: 1, background: "transparent", outline: "none", fontSize: 16, padding: "8px 0", color: c.text, border: "none" }}
+                  placeholder="Search or ask AI anything..."
+                  value={store.aiInput} onChange={(e) => store.setAiInput(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter" && store.aiInput.trim()) handleDesktopSearch(); }} />
+                <button onClick={() => store.aiInput.trim() && handleDesktopSearch()}
+                  style={{ padding: "10px 20px", borderRadius: 12, background: c.accent, border: "none", cursor: "pointer" }}>
+                  <I d={ic.send} s={16} c="#fff" />
+                </button>
+              </div>
             </div>
             {store.aiResponse && (
-              <div className="mt-1 px-5 py-4 rounded-b-2xl text-[13px] leading-relaxed"
-                style={{ background: c.surface, borderTop: `1px solid ${c.border}`, color: c.text }}>
+              <div style={{
+                padding: "16px 20px",
+                borderRadius: "0 0 16px 16px",
+                background: c.cardAlt,
+                border: `1px solid ${c.border}`,
+                borderTop: `1px solid ${c.border}`,
+                color: c.text,
+                fontSize: 13,
+                lineHeight: 1.6,
+                boxShadow: store.mode === "dark" ? "0 4px 24px rgba(0,0,0,0.3)" : "0 4px 24px rgba(0,0,0,0.08)",
+              }}>
                 <pre className="whitespace-pre-wrap font-sans">{store.aiResponse}</pre>
                 {store.aiActions.length > 0 && (
                   <div className="flex items-center gap-3 mt-3">
