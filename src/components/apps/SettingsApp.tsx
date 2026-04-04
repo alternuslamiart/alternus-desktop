@@ -362,8 +362,8 @@ export function SettingsApp({ c, mode, setMode }: { c: ThemeColors; mode: ThemeM
 
   return (
     <div className="flex h-full overflow-hidden">
-      <div className="w-[170px] flex-shrink-0 flex flex-col py-3 px-2 overflow-y-auto" style={{ borderRight: `1px solid ${c.border}`, scrollbarWidth: "none", msOverflowStyle: "none" as never }}>
-        <p className="text-xs font-semibold px-3 mb-3 uppercase tracking-wider" style={{ color: c.textMuted }}>Settings</p>
+      <div className="w-[200px] flex-shrink-0 flex flex-col py-3 px-2 overflow-y-auto" style={{ borderRight: `1px solid ${c.border}`, scrollbarWidth: "none", msOverflowStyle: "none" as never }}>
+        <p className="text-sm font-semibold px-3 mb-3" style={{ color: c.accentText }}>Settings</p>
         {items.map((it, i) => (
           <button key={i} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-colors mb-0.5"
             onClick={() => setActiveSection(it.label)}
