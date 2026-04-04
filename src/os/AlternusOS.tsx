@@ -225,17 +225,17 @@ export default function AlternusOS() {
               <path d="M18 15l-6-6-6 6" />
             </svg>
           </button>
-          <div className="mt-3 overflow-hidden transition-all duration-300 ease-in-out" style={{ maxHeight: store.showApps ? 90 : 0, opacity: store.showApps ? 1 : 0 }}>
-            <div className="flex items-center gap-2 px-4 py-3 rounded-2xl overflow-x-auto"
+          <div className="mt-3 overflow-hidden transition-all duration-300 ease-in-out" style={{ maxHeight: store.showApps ? 100 : 0, opacity: store.showApps ? 1 : 0 }}>
+            <div className="flex items-center gap-3 px-5 py-4 rounded-2xl overflow-x-auto"
               style={{ background: c.surface, border: `1px solid ${c.border}`, boxShadow: store.mode === "dark" ? "0 4px 24px rgba(0,0,0,0.35)" : "0 4px 24px rgba(0,0,0,0.1)", scrollbarWidth: "none" }}
               onWheel={(e) => { e.currentTarget.scrollLeft += e.deltaY; }}>
               {dockApps.map((app) => (
                 <button key={app.id} onClick={() => { openWinWithAI(app.id); store.setShowApps(false); }}
-                  className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+                  className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-all hover:scale-110 active:scale-95"
                   style={{ background: c.cardAlt, border: `1px solid ${c.border}` }}
                   onMouseEnter={(e) => { e.currentTarget.style.background = c.accent; e.currentTarget.style.borderColor = c.accent; }}
                   onMouseLeave={(e) => { e.currentTarget.style.background = c.cardAlt; e.currentTarget.style.borderColor = c.border; }}>
-                  <I d={app.icon} s={18} c={app.color} />
+                  <I d={app.icon} s={20} c={app.color} />
                 </button>
               ))}
             </div>
