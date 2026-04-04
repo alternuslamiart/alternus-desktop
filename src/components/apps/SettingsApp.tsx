@@ -161,8 +161,8 @@ export function SettingsApp({ c, mode, setMode }: { c: ThemeColors; mode: ThemeM
                   <I d={n.icon} s={16} c={c.textSec} />
                   <span className="text-sm" style={{ color: c.text }}>{n.app}</span>
                 </div>
-                <div className="w-8 h-4 rounded-full flex items-center px-0.5" style={{ background: n.on ? c.accent : c.cardAlt, border: n.on ? "none" : `1px solid ${c.border}` }}>
-                  <div className="w-3 h-3 rounded-full bg-white transition-all" style={{ marginLeft: n.on ? "12px" : "0px" }} />
+                <div className="w-10 h-5 rounded-full flex items-center px-0.5 transition-colors" style={{ background: n.on ? c.accent : c.cardAlt, border: n.on ? "none" : `1px solid ${c.border}` }}>
+                  <div className="w-4 h-4 rounded-full bg-white transition-all" style={{ marginLeft: n.on ? "18px" : "0px" }} />
                 </div>
               </div>
             ))}
@@ -361,11 +361,11 @@ export function SettingsApp({ c, mode, setMode }: { c: ThemeColors; mode: ThemeM
   };
 
   return (
-    <div className="flex h-full">
-      <div className="w-[170px] flex-shrink-0 flex flex-col py-3 px-2 overflow-y-auto" style={{ borderRight: `1px solid ${c.border}` }}>
-        <p className="text-sm font-semibold px-3 mb-3" style={{ color: c.accentText }}>Settings</p>
+    <div className="flex h-full overflow-hidden">
+      <div className="w-[170px] flex-shrink-0 flex flex-col py-3 px-2 overflow-y-auto" style={{ borderRight: `1px solid ${c.border}`, scrollbarWidth: "none", msOverflowStyle: "none" as never }}>
+        <p className="text-xs font-semibold px-3 mb-3 uppercase tracking-wider" style={{ color: c.textMuted }}>Settings</p>
         {items.map((it, i) => (
-          <button key={i} className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-left transition-colors mb-0.5"
+          <button key={i} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-colors mb-0.5"
             onClick={() => setActiveSection(it.label)}
             style={{ background: activeSection === it.label ? c.accentSoft : "transparent" }}
             onMouseEnter={(e) => { if (activeSection !== it.label) e.currentTarget.style.background = c.cardAlt; }}

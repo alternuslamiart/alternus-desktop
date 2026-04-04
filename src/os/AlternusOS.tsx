@@ -170,33 +170,35 @@ export default function AlternusOS() {
     <div style={{ background: c.bg }} className="fixed inset-0 flex flex-col overflow-hidden">
       {/* Top Bar */}
       <div className="flex items-center justify-between px-4 h-9 flex-shrink-0" style={{ background: c.surface, borderBottom: `1px solid ${c.border}` }}>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <span style={{ color: c.text }} className="text-[11px] font-bold tracking-wider">ALTERNUS</span>
           <span style={{ color: c.textMuted }} className="text-[10px]">OS</span>
         </div>
-        <span style={{ color: c.textSec }} className="text-xs">{fmt(store.time)} · {store.time.toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
-        <div className="flex items-center gap-2">
+        <span style={{ color: c.textSec }} className="text-xs font-medium">{fmt(store.time)} · {store.time.toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+        <div className="flex items-center gap-1">
           {(() => { const ic_ = store.mode === "dark" ? "#FFFFFF" : "#444444"; return (<>
-            <button onClick={() => store.openWin("browser")} className="p-1 rounded-md" style={{ color: ic_ }}><I d={ic.globe} s={13} /></button>
-            <button onClick={() => store.openWin("settings")} className="p-1 rounded-md" style={{ color: ic_ }}><I d={ic.settings} s={13} /></button>
-            <button onClick={() => store.openWin("code")} className="p-1 rounded-md" style={{ color: ic_ }}><I d={ic.code} s={13} /></button>
-            <button onClick={() => store.openWin("terminal")} className="p-1 rounded-md" style={{ color: ic_ }}><I d={ic.terminal} s={13} /></button>
-            <button onClick={() => store.openWin("weather")} className="p-1 rounded-md" style={{ color: ic_ }}><I d={ic.cloud} s={13} /></button>
-            <button onClick={() => store.openWin("calendar")} className="p-1 rounded-md" style={{ color: ic_ }}><I d={ic.calendar} s={13} /></button>
-            <button onClick={() => store.openWin("store")} className="p-1 rounded-md" style={{ color: ic_ }}><I d={ic.store} s={13} /></button>
-            <button onClick={() => store.openWin("movies")} className="p-1 rounded-md" style={{ color: ic_ }}><I d={ic.film} s={13} /></button>
-            <button onClick={() => store.setShowNotifications(!store.showNotifications)} className="p-1 rounded-md relative" style={{ color: ic_ }}>
+            <button onClick={() => store.openWin("browser")} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: ic_ }}><I d={ic.globe} s={13} /></button>
+            <button onClick={() => store.openWin("settings")} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: ic_ }}><I d={ic.settings} s={13} /></button>
+            <button onClick={() => store.openWin("code")} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: ic_ }}><I d={ic.code} s={13} /></button>
+            <button onClick={() => store.openWin("terminal")} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: ic_ }}><I d={ic.terminal} s={13} /></button>
+            <button onClick={() => store.openWin("weather")} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: ic_ }}><I d={ic.cloud} s={13} /></button>
+            <button onClick={() => store.openWin("calendar")} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: ic_ }}><I d={ic.calendar} s={13} /></button>
+            <button onClick={() => store.openWin("store")} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: ic_ }}><I d={ic.store} s={13} /></button>
+            <button onClick={() => store.openWin("movies")} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: ic_ }}><I d={ic.film} s={13} /></button>
+            <div className="w-px h-4 mx-1" style={{ background: c.border }} />
+            <button onClick={() => store.setShowNotifications(!store.showNotifications)} className="p-1.5 rounded-md hover:opacity-70 transition-opacity relative" style={{ color: ic_ }}>
               <I d={ic.bell} s={13} />
-              <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full" style={{ background: c.danger }} />
+              <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full" style={{ background: c.danger }} />
             </button>
-            <span style={{ color: ic_ }}><I d={ic.wifi} s={13} /></span>
-            <button onClick={() => store.setMode(store.mode === "dark" ? "light" : "dark")} className="p-1 rounded-md" style={{ color: ic_ }}>
+            <span className="p-1.5" style={{ color: ic_ }}><I d={ic.wifi} s={13} /></span>
+            <button onClick={() => store.setMode(store.mode === "dark" ? "light" : "dark")} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: ic_ }}>
               <I d={store.mode === "dark" ? ic.sun : ic.moon} s={13} />
             </button>
-            <button onClick={() => store.setIsLocked(true)} className="p-1 rounded-md" style={{ color: ic_ }}>
+            <div className="w-px h-4 mx-1" style={{ background: c.border }} />
+            <button onClick={() => store.setIsLocked(true)} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: ic_ }}>
               <I d={ic.user} s={13} />
             </button>
-            <button onClick={() => { store.setIsBooting(true); store.setIsLocked(true); }} className="p-1 rounded-md" style={{ color: ic_ }}>
+            <button onClick={() => { store.setIsBooting(true); store.setIsLocked(true); }} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: ic_ }}>
               <I d={ic.power} s={13} />
             </button>
           </>); })()}
@@ -223,17 +225,17 @@ export default function AlternusOS() {
               <path d="M18 15l-6-6-6 6" />
             </svg>
           </button>
-          <div className="mt-2 overflow-hidden transition-all duration-300 ease-in-out" style={{ maxHeight: store.showApps ? 80 : 0, opacity: store.showApps ? 1 : 0 }}>
-            <div className="flex items-center gap-1.5 px-3 py-2 rounded-2xl overflow-x-auto"
-              style={{ background: c.surface, border: `1px solid ${c.border}`, boxShadow: store.mode === "dark" ? "0 4px 20px rgba(0,0,0,0.3)" : "0 4px 20px rgba(0,0,0,0.08)", scrollbarWidth: "none" }}
+          <div className="mt-3 overflow-hidden transition-all duration-300 ease-in-out" style={{ maxHeight: store.showApps ? 90 : 0, opacity: store.showApps ? 1 : 0 }}>
+            <div className="flex items-center gap-2 px-4 py-3 rounded-2xl overflow-x-auto"
+              style={{ background: c.surface, border: `1px solid ${c.border}`, boxShadow: store.mode === "dark" ? "0 4px 24px rgba(0,0,0,0.35)" : "0 4px 24px rgba(0,0,0,0.1)", scrollbarWidth: "none" }}
               onWheel={(e) => { e.currentTarget.scrollLeft += e.deltaY; }}>
               {dockApps.map((app) => (
                 <button key={app.id} onClick={() => { openWinWithAI(app.id); store.setShowApps(false); }}
-                  className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+                  className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center transition-all hover:scale-110 active:scale-95"
                   style={{ background: c.cardAlt, border: `1px solid ${c.border}` }}
                   onMouseEnter={(e) => { e.currentTarget.style.background = c.accent; e.currentTarget.style.borderColor = c.accent; }}
                   onMouseLeave={(e) => { e.currentTarget.style.background = c.cardAlt; e.currentTarget.style.borderColor = c.border; }}>
-                  <I d={app.icon} s={16} c={app.color} />
+                  <I d={app.icon} s={18} c={app.color} />
                 </button>
               ))}
             </div>
@@ -426,10 +428,10 @@ export default function AlternusOS() {
             borderLeft: `1px solid ${c.border}`,
             boxShadow: store.showNotifications ? (store.mode === "dark" ? "-4px 0 20px rgba(0,0,0,0.4)" : "-4px 0 20px rgba(0,0,0,0.1)") : "none",
           }}>
-          <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: `1px solid ${c.border}` }}>
+          <div className="flex items-center justify-between px-4 py-3 flex-shrink-0" style={{ borderBottom: `1px solid ${c.border}` }}>
             <div className="flex items-center gap-2">
               <I d={ic.sparkle} s={14} c={c.accentText} />
-              <p className="text-sm font-semibold" style={{ color: c.text }}>AI Notifications</p>
+              <p className="text-sm font-semibold" style={{ color: c.text }}>Notifications</p>
               {store.smartDND && <span className="text-[9px] px-1.5 py-0.5 rounded-full" style={{ background: c.warningSoft, color: c.warning }}>DND</span>}
             </div>
             <div className="flex items-center gap-1">
@@ -438,12 +440,12 @@ export default function AlternusOS() {
                   const types = store.aiNotifications.reduce((a, n) => { a[n.type] = (a[n.type] || 0) + 1; return a; }, {} as Record<string, number>);
                   const sum = Object.entries(types).map(([t, cnt]) => `${cnt} ${t}`).join(", ");
                   store.setAiNotifications([{ id: "summary", title: "AI Summary", message: `You had ${store.aiNotifications.length} notifications: ${sum}. All caught up!`, icon: ic.sparkle, time: "Now", type: "summary", read: false }]);
-                }} className="p-1 rounded-md text-[9px]" style={{ color: c.accentText }}>Summarize</button>
+                }} className="px-2 py-1 rounded-md text-[10px] font-medium hover:opacity-70 transition-opacity" style={{ color: c.accentText }}>Summarize</button>
               )}
-              <button onClick={() => store.setShowNotifications(false)} className="p-1 rounded-md" style={{ color: c.textMuted }}><I d={ic.close} s={14} /></button>
+              <button onClick={() => store.setShowNotifications(false)} className="p-1.5 rounded-md hover:opacity-70 transition-opacity" style={{ color: c.textMuted }}><I d={ic.close} s={14} /></button>
             </div>
           </div>
-          <div className="p-3 space-y-2 overflow-y-auto" style={{ height: "calc(100% - 48px)" }}>
+          <div className="p-3 space-y-2 overflow-y-auto" style={{ height: "calc(100% - 52px)", scrollbarWidth: "none" }}>
             {store.aiNotifications.map((n) => (
               <div key={n.id} className="flex items-start gap-3 p-3 rounded-xl transition-colors"
                 style={{ background: !n.read ? c.accentSoft : "transparent" }}
