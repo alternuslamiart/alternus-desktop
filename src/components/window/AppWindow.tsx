@@ -103,8 +103,10 @@ export function AppWindow({ win, c, children, onClose, onMinimize, onMaximize, o
         isFrozen={win.isFrozen}
         onForceQuit={onForceQuit}
       />
-      <div style={{ flex: 1, overflow: "auto", position: "relative" }}>
+      <div style={{ flex: 1, overflow: "hidden", position: "relative", padding: 6 }}>
+        <div style={{ width: "100%", height: "100%", overflow: "auto", borderRadius: 6 }}>
         {children}
+        </div>
         {win.isFrozen && (
           <div className="absolute inset-0 flex items-center justify-center" style={{ background: "rgba(0,0,0,0.5)", zIndex: 999 }}>
             <div className="text-center p-6 rounded-xl" style={{ background: c.surface, border: `1px solid ${c.border}` }}>
