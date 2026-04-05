@@ -213,11 +213,11 @@ export default function AlternusOS() {
             onClick={() => store.setShowApps(!store.showApps)}
             className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
             style={{
-              background: store.showApps ? c.accent : c.surface,
-              border: `1px solid ${store.showApps ? c.accent : c.border}`,
+              background: store.showApps ? "#4ADE80" : c.surface,
+              border: `1px solid ${store.showApps ? "#4ADE80" : c.border}`,
               color: store.showApps ? "#fff" : c.textSec,
             }}
-            onMouseEnter={(e) => { if (!store.showApps) { e.currentTarget.style.background = c.accent; e.currentTarget.style.borderColor = c.accent; e.currentTarget.style.color = "#fff"; } }}
+            onMouseEnter={(e) => { if (!store.showApps) { e.currentTarget.style.background = "#4ADE80"; e.currentTarget.style.borderColor = "#4ADE80"; e.currentTarget.style.color = "#fff"; } }}
             onMouseLeave={(e) => { if (!store.showApps) { e.currentTarget.style.background = c.surface; e.currentTarget.style.borderColor = c.border; e.currentTarget.style.color = c.textSec; } }}
           >
             <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
